@@ -107,6 +107,7 @@ def clip_transform(np_image, resolution=224):
 
 if __name__ == "__main__":
     predictor = Predictor()
+    predictor.setup()
     # Print model parameters
     print(sum(p.numel() for p in predictor.model.parameters()))
     # print clip model parameters
