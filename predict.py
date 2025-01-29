@@ -23,7 +23,6 @@ sys.path.insert(0, "universal-image-restoration/config/daclip-sde")
 import options as option
 from models import create_model
 
-
 import open_clip
 import utils as util
 
@@ -56,8 +55,8 @@ class Predictor(BasePredictor):
         self.sde.set_model(self.model.model)
 
     def predict(
-        self,
-        image: Path = Input(description="Input image"),
+            self,
+            image: Path = Input(description="Input image"),
     ) -> Path:
         """Run a single prediction on the model"""
         image = cv2.imread(str(image))
@@ -104,3 +103,11 @@ def clip_transform(np_image, resolution=224):
             ),
         ]
     )(pil_image)
+
+
+if __name__ == "__main__":
+    predictor = Predictor()
+    # Print model parameters
+    print(sum(p.numel() for p in predictor.model.parameters()))
+    # print clip model parameters
+    print(sum(p.numel() for p in predictor.clip_model.parameters()))
